@@ -1,0 +1,35 @@
+{
+  "name": "vue-scoped-to-cssModules",
+  "version": "1.0.4",
+  "description": "i18n environment Chinese extract and input",
+  "main": "index.js",
+  "bin": {
+    "scoped2module": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xujiujiu/vue-scoped-to-cssModules.git"
+  },
+  "keywords": [
+    "i18n"
+  ],
+  "author": "xujiujiu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xujiujiu/vue-scoped-to-cssModules/issues"
+  },
+  "homepage": "https://github.com/xujiujiu/vue-scoped-to-cssModules#readme",
+  "dependencies": {
+    "chalk": "5.3.0",
+    "commander": "11.0.0",
+    "cross-spawn": "7.0.3",
+    "fs-extra": "11.1.1",
+    "gogocode": "1.0.55",
+    "hyntax-yx": "1.0.8",
+    "postcss": "8.4.27"
+  }
+}
