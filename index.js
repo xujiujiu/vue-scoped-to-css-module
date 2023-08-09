@@ -19,6 +19,10 @@ program
 			return value.split(/\s+/)
 		}
 	)
+	.option(
+		'-f, --format',
+		"是否格式化"
+	)
 	.action((options) => {
 		transform(options)
 			.then(() => {

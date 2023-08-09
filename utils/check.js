@@ -1,9 +1,37 @@
 const fse = require('fs-extra')
 const path = require('path')
 const chalk = require('chalk')
+/**
+ * 将命令行工具的自定义参数传入到plugin的options参数里面
+ */
+ function paramsToOptions(params, options) {
+  if (!params) {
+      return;
+  }
+  const arr = params.split('#');
+  arr.forEach(kv => {
+      const kvArr = kv.split('=');
+      if (kvArr.length === 1) {
+          const key = kvArr[0];
+          options[key] = '';
+      } else if (kvArr.length === 2) {
+          const key = kvArr[0];
+          const value = kvArr[1].trim();
+          if (typeof value === 'boolean') {
+              options[key] = value;
+          } else if (value === 'true') {
+              options[key] = true;
+          } else if (value === 'false') {
+              options[key] = false;
+          } else {
+              options[key] = value;
+          }
+      }
+  });
+}
 
 module.exports = {
-  checkOptions({ src, out, quiet, ignore, empty }) {
+  checkOptions({ src, out, quiet, format, ignore, empty }) {
     const transformParams = {}
     return new Promise((resolve, reject) => {
       let srcPath = path.resolve(src || '')
@@ -26,6 +54,7 @@ module.exports = {
 				srcPath,
         outPath,
         isSingle,
+        format: !!format,
         ignore: (ignore || []).concat(['node_modules']),
         quiet: !!quiet,
         empty: !!empty
