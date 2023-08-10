@@ -1,4 +1,5 @@
 const postcss = require('postcss')
+const $ = require('gogocode')
 
 // 获取 css 对应的对象数据结构 styleObject
 function getStyleObject(css, styleObject) {
@@ -18,21 +19,72 @@ function getStyleObject(css, styleObject) {
     })
   })
 }
+function formatClassNames(classNames, styleObject) {
+  const modifiedClassNames = []
+  let hasModuleCss = false
+  classNames.forEach(className => {
+    if (className.trim() !== '') {
+      if (styleObjectHas(styleObject, className)) {
+        modifiedClassNames.push(`$style['${className}']`);
+        hasModuleCss = true
+      } else {
+        modifiedClassNames.push(`'${className}'`);
+      }
+    }
+  });
+  return {
+    modifiedClassNames,
+    hasModuleCss
+  }
+}
 
 function modifyClassNames(node, styleObject) {
   if (node.content && node.content.attributes) {
     const attrs = node.content.attributes || []
-    const classAttr = attrs.find(attr => attr.key.content === 'class')
-    if (classAttr.value && classAttr.value.content) {
-      const classNames = classAttr.value.content.split(' ');
-      const modifiedClassNames = classNames.map(className => {
-        if (styleObjectHas(styleObject, className)) {
-          classAttr.key.content = ':class'
-          return `$style['${className}']`;
+    const classAttr = attrs.find(attr => attr.key.content === 'class') || {}
+    const classAttrIndex = attrs.findIndex(attr => attr.key.content === 'class')
+    const classAttrContent = classAttr.value && classAttr.value.content || ''
+    const classDynamicAttr = attrs.find(attr => /(v-bind)?:class/g.test(attr.key.content)) || {}
+    const classDynamicAttrIndex = attrs.findIndex(attr => /(v-bind)?:class/g.test(attr.key.content))
+    const dynamicClassContent = classDynamicAttr.value && classDynamicAttr.value.content || ''
+    const classNames = classAttrContent.trim().split(/\s+/) || [];
+    const { hasModuleCss = false, modifiedClassNames = [] } = formatClassNames(classNames, styleObject)
+    // 静态样式处理
+    if (hasModuleCss) {
+      if (!dynamicClassContent) {
+        const sign = classAttr.endWrapper && classAttr.endWrapper.content === '\'' ? '\"' : '\''
+        classAttr.key.content = ':class'
+        classAttr.value.content = `[${modifiedClassNames.join(',').replace(/\'|\"/g, sign)}]`;
+      }
+    }
+    // 动态样式处理
+    if (dynamicClassContent) {
+      const dccNode = $(dynamicClassContent, { parseOptions: { language: 'js' } }).node.program.body[0]
+      let isArray = false
+      if (dccNode.type === 'ExpressionStatement' && dccNode.expression.type === 'ArrayExpression') {
+        isArray = true
+        // 处理数组类型内的字符串值 如[{hello: true}, 'hello']中的hello
+        dccNode.expression.elements.forEach(element => {
+          if (element.type === 'StringLiteral') {
+            const str = element.extra.raw
+            classDynamicAttr.value.content = classDynamicAttr.value.content.replace(str, `$style[${str}]`)
+          }
+        })
+
+      } else {
+        // TODO 其他场景
+      }
+      if (hasModuleCss) {
+        const dynamicSign = classDynamicAttr.endWrapper && classDynamicAttr.endWrapper.content === '\'' ? '\"' : '\''
+        const addClassNames = modifiedClassNames.join(',').replace(/\'|\"/g, dynamicSign)
+        if (isArray) {
+          classDynamicAttr.value.content = classDynamicAttr.value.content.replace(/^\[/, `[${addClassNames},`)
+        } else {
+          classDynamicAttr.value.content = `[${classDynamicAttr.value.content}, ${addClassNames}]`
         }
-        return className;
-      });
-      classAttr.value.content = modifiedClassNames.join(' ');
+        // 清除静态样式属性
+        attrs.splice(classAttrIndex, 1)
+      }
     }
   }
   if (node.content.children) {

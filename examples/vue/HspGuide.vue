@@ -1,5 +1,6 @@
 <template>
-  <div class="hello" :style="{height: styleOpts.height + 'px'}">
+  <div class=' hello wewuyi  werywui' :style="{height: styleOpts.height + 'px'}">
+    <div :class="[{hello: true}, 'hello']" class=' hello wewuyi '></div>
     hello world
   </div>
 </template>
