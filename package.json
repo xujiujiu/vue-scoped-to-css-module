@@ -7,7 +7,7 @@
     "scoped2module": "./index.js"
   },
   "scripts": {
-    "test": "node index.js -s ./examples/vue/HspGuide.vue -f"
+    "test": "node index.js -s ./examples -f -e"
   },
   "files": [
     "index.js",
