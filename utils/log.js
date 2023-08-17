@@ -4,7 +4,7 @@ const PWD_PATH = process.cwd()
 const fse = require('fs-extra')
 
 // 日志文件路径
-const logFilePath = path.join(PWD_PATH, 'jsn2hola.log');
+const logFilePath = path.join(PWD_PATH, 'scoped2module.log');
 
 function getChinaTime() {
   const now = new Date();

@@ -1,6 +1,6 @@
 {
   "name": "vue-scoped-to-cssModules",
-  "version": "1.0.4",
+  "version": "0.0.1",
   "description": "vue style scoped to css module style",
   "main": "index.js",
   "bin": {
