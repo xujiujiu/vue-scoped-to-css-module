@@ -5,9 +5,10 @@ name: Publish Package to npmjs
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
-  publish-npm:
+jobs:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,7 +16,7 @@ on:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
+      - run: npm i
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
