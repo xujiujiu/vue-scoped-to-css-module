@@ -34,7 +34,7 @@
     "fs-extra": "11.1.1",
     "gogocode": "1.0.55",
     "hyntax-yx": "1.0.8",
-    "postcss": "8.4.27",
+    "postcss": "8.4.31",
     "prettier": "^2.2.1"
   }
 }
