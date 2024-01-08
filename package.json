@@ -1,10 +1,10 @@
 {
-  "name": "vue-scoped-to-css-module",
-  "version": "0.0.5",
+  "name": "vue-scoped-to-css-modules",
+  "version": "0.0.6",
   "description": "vue style scoped to css module style",
   "main": "index.js",
   "bin": {
-    "scoped2module": "./index.js"
+    "scoped2modules": "./index.js"
   },
   "scripts": {
     "test": "node index.js -s ./examples -f -e"
@@ -20,7 +20,9 @@
     "url": "git+https://github.com/xujiujiu/vue-scoped-to-cssModules.git"
   },
   "keywords": [
-    "i18n"
+    "vue",
+    "scoped",
+    "css-modules"
   ],
   "author": "xujiujiu",
   "license": "MIT",
