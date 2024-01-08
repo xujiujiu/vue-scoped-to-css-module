@@ -1,4 +1,4 @@
-# vue-scoped-to-css-module
+# vue-scoped-to-css-modules
 将 vue 2.x 工程的 scoped 转换成 css module 的工具
 
 ## 插件安装
@@ -9,17 +9,17 @@ npm i -g vue-scoped-to-css-module
 ```
 插件安装成功后可通过一下方式查看插件版本，若能正常展示版本号，即表示插件已安装成功
 ```
-scoped2module -V
+scoped2modules -V
 ```
 
 ## 插件使用说明
 通过下方指令可查看 scoped2module 插件可使用的转换指令
 ```
-scoped2module -h
+scoped2modules -h
 ```
 
 ```
-transform style of vue2 from scoped to css module
+transform style of vue2 from scoped to css modules
 
 Options:
   -s, --src <path>          source file path, which can be a directory or a file path(default:PWD)
@@ -36,7 +36,7 @@ Options:
 -s 或 --src 用于指定需要转换的源文件路径，可以为目录或文件路径，默认为执行目录。值为文件路径时，需要为vue文件
 
 ```
-scoped2module -s ./example  或 scoped2module -s ./example/test.vue
+scoped2modules -s ./example  或 scoped2module -s ./example/test.vue
 ```
 
 ### 参数 -o
@@ -44,7 +44,7 @@ scoped2module -s ./example  或 scoped2module -s ./example/test.vue
 -o 或 --out 用于指定转换后的输出文件目录，默认为执行目录下的 temp_out，必须为文件夹形式
 
 ```
-scoped2module -o ./temp
+scoped2modules -o ./temp
 ```
 
 ### 参数 -e
@@ -52,7 +52,7 @@ scoped2module -o ./temp
 -e 或 --empty 用于指定在开始转换前是否清空目标目录【即 --out 指定的路径】
 
 ```
-scoped2module -o ./temp -e   // 此指令在转换前清空 temp 目录内容
+scoped2modules -o ./temp -e   // 此指令在转换前清空 temp 目录内容
 ```
 
 ### 参数 -q
@@ -60,7 +60,7 @@ scoped2module -o ./temp -e   // 此指令在转换前清空 temp 目录内容
 -q 或 --quiet 用于指定是否输出转换成功相关的转换日志，默认输出转换日志中包含所有转换成功和转换失败的记录，转换日志文件路径为：执行目录/scoped2module.log
 
 ```
-scoped2module -q
+scoped2modules -q
 ```
 
 ### 参数 -i
@@ -68,13 +68,13 @@ scoped2module -q
 -i 或--ignore 用于指定转换过程中需要忽略的文件夹，必须为文件夹名称
 
 ```
-scoped2module -i pages  // 将在转换过程中忽略所有文件夹名称为 pages 下的所有 vue 文件
+scoped2modules -i pages  // 将在转换过程中忽略所有文件夹名称为 pages 下的所有 vue 文件
 ```
 ### 参数 -f
 
 -f 或--format 用于指定格式化转换后的文件
 
 ```
-scoped2module -f  // 将对执行目录下的所有执行过转换的文件进行格式化
+scoped2modules -f  // 将对执行目录下的所有执行过转换的文件进行格式化
 ```
 
