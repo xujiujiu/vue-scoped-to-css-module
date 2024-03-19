@@ -1,10 +1,10 @@
 {
   "name": "vue-scoped-to-css-modules",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "vue style scoped to css module style",
   "main": "./lib/index.js",
   "bin": {
-    "scoped2modules": "./index.js"
+    "scoped2modules": "index.js"
   },
   "scripts": {
     "test": "node index.js -s ./examples -f -e"

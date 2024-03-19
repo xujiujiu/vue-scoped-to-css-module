@@ -130,3 +130,5 @@ dist
 .pnp.*
 
 temp_out
+
+.DS_Store
