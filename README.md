@@ -1,11 +1,11 @@
 # vue-scoped-to-css-modules
-将 vue 2.x 工程的 scoped 转换成 css module 的工具
+将 vue 2.x 工程的 scoped 转换成 css modules 的工具
 
 ## 插件安装
 
 全局安装插件
 ```
-npm i -g vue-scoped-to-css-module
+npm i -g vue-scoped-to-css-modules
 ```
 插件安装成功后可通过一下方式查看插件版本，若能正常展示版本号，即表示插件已安装成功
 ```
